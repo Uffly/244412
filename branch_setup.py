@@ -36,8 +36,7 @@ class Spiny_branch():
 
         # ipdb.set_trace()
         # self.cell.balance_currents(p['Vrest'], check = p['check'])
-        # done in the hoc file
-        # self.cell.record(['vm','spikes'])
+
 
         # Spine mechanisms
         self.cad = nu.Mechanism('cad', depth = 0.05, tauca = 12, cainf = 100e-6) # depth in um, tau in ms, cainf in mM
@@ -45,9 +44,6 @@ class Spiny_branch():
         self.cal = nu.Mechanism ('cal', gcalbar=p['gcalbar'])
         self.can = nu.Mechanism ('can', gcanbar=p['gcanbar'])
         self.cat = nu.Mechanism ('cat', gcatbar=p['gcatbar'])
-        # self.kad = nu.Mechanism ('kad', gkabar=0)
-        # self.na3 = nu.Mechanism ('na3', gbar=0)
-        # self.kdr = nu.Mechanism ('kdr', gkdrbar=0)
         
         h.use_mcell_ran4()
         self.MCell_Ran4_lowindex = 42
@@ -56,39 +52,14 @@ class Spiny_branch():
         self.MCell_Ran4_highindex = [self.noiseRandObj.MCellRan4(12345)]
         self.noiseRandObj.uniform(0,1)
 
-        self.branch_segments = [[sec,seg] for sec in list(self.cell.branch38.values()) for seg in sec]
-        self.branch_segments_2 = [[sec,seg] for sec in list(self.cell.branch8.values()) for seg in sec]
-        self.branch_segments_3 = [[sec,seg] for sec in list(self.cell.branch37.values()) for seg in sec]
-        # self.spine_segments = sample(self.branch_segments,p['nspines'])
-        # self.spine_segments = self.branch_segments[0:len(self.branch_segments):3]
+        self.branch_segments = [[sec, seg] for sec in list(self.cell.branch38.values()) for seg in sec]
+        self.branch_segments_2 = [[sec, seg] for sec in list(self.cell.branch8.values()) for seg in sec]
+        self.branch_segments_3 = [[sec, seg] for sec in list(self.cell.branch37.values()) for seg in sec]
 
-        # # Some spines potentiate before others, thus we set those spines to be at the dendritic tip where
-        # # the BPAP has larger amplitud yielding a larger Ca2+ transient, more fused vesicles, more pro/mBDNF in the syn cleft
-        # # with a resulting earlier/faster potentiation.
-        # self.spine_segments = [self.branch_segments[-1],
-        #                        self.branch_segments[-1],
-        #                        self.branch_segments[-1],
-        #                        self.branch_segments[-1]]# 4 spines at the branch tip
-        # self.spine_segments.extend(self.branch_segments[-7:-4]) # 3 spines in the middle
-        # self.spine_segments.extend(self.branch_segments[-15:-12]) # 4 near the branching point
-        # self.spine_segments.extend([self.branch_segments[-20]])
-        # self.spine_segments.extend([self.branch_segments[-22]])
-        # # print len(self.branch_segments), self.branch_segments[-22:-19]
-        # self.spine_segments.extend(self.branch_segments_2[-22:-19])
-        # self.spine_segments.extend(self.branch_segments_2[-22:-19])
-        # # self.spine_segments.extend([self.branch_segments[-25]])
-        # # self.spine_segments.extend([self.branch_segments[-26]])
-        # # self.spine_segments.extend([self.branch_segments_3[-1]])
-        # # self.spine_segments.extend([self.branch_segments_3[-3]])
-        # print "LENGTH",len(self.spine_segments)
-        
         self.seg_indexes = [-1,-1,-1,-1,-7,-6,-5,-15,-14,-13,-20,-22] # 12 spines [0:11]
         self.seg_indexes_2 =[-22,-21,-20,-22,-21,-20] # 6 extra spines [12:17]
 
-        # # Generate randomly selected set
-        # # self.seg_indexes = sample(range(0,len(self.branch_segments)-15),p['nspines'])
-        # self.seg_indexes = np.random.choice(range(len(self. branch_segments)),size=p['nspines'])
-        # self.seg_indexes_2 = np.random.choice(range(len(self.branch_segments_2)),size=p['nspines_2'])
+
         # Seg_indexes are saved in the sim data file.
         self.spine_segments = [self.branch_segments[idx] for idx in self.seg_indexes]
         self.spine_segments.extend([self.branch_segments_2[idx] for idx in self.seg_indexes_2])
@@ -109,44 +80,7 @@ class Spiny_branch():
                                      balance_currents=True,
                                      highindex=self.MCell_Ran4_highindex[-1]))
             self.MCell_Ran4_highindex.append(self.noiseRandObj.MCellRan4())
-        # Set specific RM11 and RMD time constants        
-        self.spines[0].head.RMECB.tau_RMLTP11 = self.spines[0].head.RMECB.tau_RMLTP11/3
-        self.spines[1].head.RMECB.tau_RMLTP11 = self.spines[0].head.RMECB.tau_RMLTP11
-        self.spines[2].head.RMECB.tau_RMLTP11 = self.spines[0].head.RMECB.tau_RMLTP11
-        
-        self.spines[3].head.RMECB.tau_RMLTP11 = self.spines[3].head.RMECB.tau_RMLTP11
-        self.spines[4].head.RMECB.tau_RMLTP11 = self.spines[3].head.RMECB.tau_RMLTP11
-
-        self.spines[5].head.RMECB.tau_RMLTP11 = self.spines[3].head.RMECB.tau_RMLTP11 * 1.5
-
-        self.spines[6].head.RMECB.tau_RMLTP11 = self.spines[3].head.RMECB.tau_RMLTP11 * 1.5
-
-        self.spines[7].head.RMECB.tau_RMLTP11 = self.spines[7].head.RMECB.tau_RMLTP11 * 1.7
-        self.spines[8].head.RMECB.tau_RMLTP11 = self.spines[7].head.RMECB.tau_RMLTP11
-        self.spines[9].head.RMECB.tau_RMLTP11 = self.spines[7].head.RMECB.tau_RMLTP11
-
-        self.spines[10].head.RMECB.tau_RMLTP11 = self.spines[3].head.RMECB.tau_RMLTP11 * 2
-        self.spines[11].head.RMECB.tau_RMLTP11 = self.spines[3].head.RMECB.tau_RMLTP11
-
-        # # Set specific BDNF  constants        
-        # for s_i,s in enumerate(self.spines[12:18]):
-        #     s.head.BDNF.theta_cai_BDNF = 0.045 # set a low cai threshold these spines on branch8
-        #     s.head.internal_nc.threshold = s.head.BDNF.theta_cai_BDNF
-        #     s.head.RMECB.theta_cai_RMBLK = 0.052 # set a low cai threshold these spines on branch8
-        #     s.head.RMECB.theta_cai_RM = 0.006 # set a low cai threshold these spines on branch8
-        #     s.head.BDNF.theta_gAMPA = 0.02 # set a normal threshold for test
-        #     s.head.BDNF.alpha_gAMPA = 1.5 # set a high LTP
-        #     s.head.BDNF.v_BDNF = 0.002*1.0 # Increase BDNF release at these spines
-        # self.spines[12].head.BDNF.theta_gAMPA = 0.06
-        # self.spines[13].head.BDNF.theta_gAMPA = 0.05
-        # self.spines[14].head.BDNF.theta_gAMPA = 0.075
-        # self.spines[15].head.BDNF.theta_gAMPA = 0.075
-        # self.spines[16].head.BDNF.theta_gAMPA = 0.08
-        # self.spines[17].head.BDNF.theta_gAMPA = 0.11
-        
-        for s_i,s in enumerate(self.spines):
-            print(("spine ", s_i, s.head.BDNF.theta_gAMPA))
-            
+                      
     def plot_branch(self,
                     variable,
                     type='mech',

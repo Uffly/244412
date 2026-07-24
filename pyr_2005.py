@@ -8,10 +8,8 @@ class cell(object):
     def __init__(self, records=[], check=False):
         self.Name = 'pyr2005'
         # Load the neuron structure from .swc converted to .hoc geometry
-        if use_channels:
-            h.load_file('bdnf.hoc')
-        else:
-            h.load_file('bdnf_passive.hoc')
+    
+        h.load_file('bdnf.hoc') # create the neuron and add Na and K channels
 
         models = st.get_cell_list()
 
@@ -83,91 +81,14 @@ class cell(object):
         for sec in self.branch16_sl:
             self.branch16[sec.name()] = sec
 
-        # # print self.branch93['apic[95]'].diam
-
-        # # access main branch
-        # self.soma.push()
-        # self.branch_base = self.branch93['apic[93]']
-        # # set origin for distance
-        # h.distance(0,0.5)
-
-        # # Adjust the nseg
-        # st.geom_nseg(self.branch_sl, check = check)
 
         # Increase the number of segments to at least 10 per section
         # in the branch to have enough segments for the spines
         for br in [self.branch_sl,self.branch37_sl,self.branch8_sl,self.branch16_sl]:
             for sec in br:
-                sec.nseg = max(30,sec.nseg)
+                sec.nseg = max(31, sec.nseg)
             
-        # # Set biophysical properties
-        # Rm = 26000    # Ohm/cm2
-        # print "Imput resistance Rm = ", Rm," Ohm/cm2"
-        # Cm = 1.41
-        # Ra = 150
-        # RaAx = 50
-
-        # self.segments = [['%s_%g'%(sec.name(),seg.x),seg] for sec in self.branch_sl for seg in sec]
-
-        # # The "apic" rad Sectionlists
-        # # should insert the following channels
-        # apic_channels = ['pas','hd','na3','kdr','kad','kap','cacum','cal','can','cat','cagk']
-        # basal_channels = ['hd','na3','kdr','kap','cacum','cal','can','cat','cagk']
-        # soma_channels = ['hd','na3','kdr','kap','km','kd','cacum','cal','can','cat','cagk']
-        # axon_channels = ['na3','kdr','kap','km']
-
-        # gna = 0.07
-        # gkdr = 0.06
-        # gkap = 0.0015
-        # gkad  =  0.001
-        # ghd=5.5e-7
-
-        # gkm=0.0001
-        # gkd = 0.0001
-
-        # sh = 5
-        # nash = 8
-        # kash = 12
-        # kdrsh = sh
-        # kmsh = 12
-        # kdsh = 0
-        # hdsh = 0
-
-        # gc = 1.e-5
-        # gcal=gc
-        # gcan=gc
-        # gcat=gc
-        # gKc = 3e-05
-
-        # for sec in self.apical_sl:
-        #     for ch in channels:
-        #         sec.insert(ch)
-        #     # sec.tau_cacum = 200
-        #     # sec.depth_cacum = sec.diam/2
-        #     sec.e_pas = Vrest
-        #     sec.g_pas = 1.0/Rm
-        #     sec.Ra = Ra
-        #     sec.cm = Cm
-
-        #     sec.ghdbar_hd = ghd
-        #     sec.vhalfl_hd = -73
-        #     sec.sh_hd = hdsh
-        #     sec.ehd_hd=-30
-
-        #     sec.gbar_na3=gna
-        #     sec.sh_na3=nash
-        #     sec.gkdrbar_kdr=gkdr
-        #     sec.sh_kdr=kdrsh
-        #     sec.gkabar_kap=0
-
-        #     sec.sh_kap=kash	
-        #     sec.gkabar_kad=0
-        #     sec.sh_kad=kash
-        #     sec.gcalbar_cal=gc
-        #     sec.gcanbar_can=gc
-        #     sec.gcatbar_cat=gc
-    	#     sec.gbar_cagk= gKc 
-
+      
 
         # Store data
         self.records = {}
@@ -218,7 +139,7 @@ class cell(object):
                     print((e_pas, seg.e_pas))
                     # print (seg.ina+seg.ik+seg.ica+seg.i_hd)/seg.g_pas + Vrest
                     
-    def record(self, to_record):
+    def record(self, to_record): ## TODO to add ica recording
         self.records = {}
         if 'vm' in to_record:
             self.records['vms'] = {}
@@ -229,7 +150,8 @@ class cell(object):
                     secs[seg.x].record(seg._ref_v)
         if 'spikes' in to_record:
             self.records['spikes'] = h.Vector()
-            self.nc_spike = h.NetCon(self.branch93['apic[93]'](0.5)._ref_v, None,-20,0,1, sec = self.branch93['apic[93]'])
+            self.nc_spike = h.NetCon(self.branch93['apic[93]'](0.5)._ref_v, None,-20,
+                                     0,1, sec = self.branch93['apic[93]'])
             self.nc_spike.record(self.records['spikes'])
 
     def record_spikes(self, threshold=-30):

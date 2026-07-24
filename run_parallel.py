@@ -42,14 +42,6 @@ def superrun(xxx_todo_changeme):
             print(('Stimulation is %s for %g times.'%(conf_n,nstim))) 
     else:
         protocol.stim.number = 0
-
-    # Remove the RMBLK
-    if blk_RMBLK:
-        for s in cell.spines:
-            s.head.RMECB.alpha_cai_RMBLK = 0
-            # print s.name,s.head.RMECB.alpha_cai_RMBLK
-            # print "SPINE max_fused_vesicles", s.head.BDNF.max_fused_vesicles
-
         
     if p['check']:
         print(("Running for delta_t = %g"%delta_t))
@@ -145,7 +137,7 @@ cell = Spiny_branch(p,rank=rank)
 # for s in cell.spines:
 #     print s.head.BDNF.alpha_gAMPA, s.head.BDNF.theta_gAMPA, s.head.BDNF.sigma_gAMPA
 # global protocol
-protocol = stim_protocol(cell,p, rank=rank)
+protocol = stim_protocol(cell, p, rank=rank)
 
 
 pc.runworker()

@@ -11,17 +11,17 @@ spine_records = [
     ,{'variable':'ica','point_process':'NMDA','location':0.5,'unit':'nA'}
     ,{'variable':'mgb','point_process':'NMDA','location':0.5,'unit':'nA'}
     ,{'variable':'iglut','location':0.5,'unit':'mM'}
-    ,{'variable':'RM','point_process':'RMECB','location':0.5,'unit':'mM'}
-    ,{'variable':'RMr','point_process':'RMECB','location':0.5,'unit':'mM'}#    ,{'variable':'RMBLKe','point_process':'RMECB','location':0.5,'unit':'??'}
-    ,{'variable':'RMBLK','point_process':'RMECB','location':0.5,'unit':'mM'}
-    ,{'variable':'post_intra','point_process':'RMECB','location':0.5,'unit':'mM'}
-    ,{'variable':'proBDNF','point_process':'BDNF','location':0.5,'unit':'mM'}
-    ,{'variable':'fused_vesicles','point_process':'BDNF','location':0.5,'unit':'#'}
-    ,{'variable':'mBDNF','point_process':'BDNF','location':0.5,'unit':'mM'}
-    ,{'variable':'PC','point_process':'BDNF','location':0.5,'unit':'mM'}
-    ,{'variable':'TrkB','point_process':'BDNF','location':0.5,'unit':'mM'}
-    ,{'variable':'intracell_signaling','point_process':'BDNF','location':0.5,'unit':'mM'}
-    ,{'variable':'g_factor','point_process':'AMPA','location':0.5,'unit':''}
+    #,{'variable':'RM','point_process':'RMECB','location':0.5,'unit':'mM'}
+    #,{'variable':'RMr','point_process':'RMECB','location':0.5,'unit':'mM'}#    ,{'variable':'RMBLKe','point_process':'RMECB','location':0.5,'unit':'??'}
+    #,{'variable':'RMBLK','point_process':'RMECB','location':0.5,'unit':'mM'}
+    # ,{'variable':'post_intra','point_process':'RMECB','location':0.5,'unit':'mM'}
+    # ,{'variable':'proBDNF','point_process':'BDNF','location':0.5,'unit':'mM'}
+    # ,{'variable':'fused_vesicles','point_process':'BDNF','location':0.5,'unit':'#'}
+    # ,{'variable':'mBDNF','point_process':'BDNF','location':0.5,'unit':'mM'}
+    # ,{'variable':'PC','point_process':'BDNF','location':0.5,'unit':'mM'}
+    # ,{'variable':'TrkB','point_process':'BDNF','location':0.5,'unit':'mM'}
+    # ,{'variable':'intracell_signaling','point_process':'BDNF','location':0.5,'unit':'mM'}
+    #,{'variable':'g_factor','point_process':'AMPA','location':0.5,'unit':''}
     ]
 
 Vrest = -70 # mV
@@ -40,7 +40,7 @@ gcanbar = 0.5
 temperature = 35 # deg
 erev_na = 55 # mV
 erev_k = -90 # mV
-check = False #True
+check = True
 
 IC_delay_to_spike = 1.3 # ms
 gc = 52e-5; # gives a BPAP [Ca]i amp = 1.71 uM, from 0.1 to 1.81 uM
@@ -49,43 +49,43 @@ nspines_2 = 5
 sp_delay_env = 8
 
 spine_point_processes=[
-    {'label':'RMECB',
-     'type':'RM_eCB',
-    'locations':[0.5],
-    'parameters':{'tau_RM': 7e3, #1800e3, # next 10e3 #ms
-                  'theta_cai_RM': 0.046, # mM this is tuned to distinguish between LTP1:4 deltat=5ms and LTP1:1 deltat=-5ms
-                  'sigma_cai_RM' : 0.01e-3, # mM
-                  'alpha_cai_RMBLK': 1.5e-2, # mM/ms
-                  'theta_cai_RMBLK' : 0.12, # mM
-                  'sigma_cai_RMBLK' : 0.0001, # mM
-                  'tau_RMBLK' : 1e5, # mM
-                  'tau_RMLTP11':1800e3*1.2, # ms
-                  'alpha_RMru':1.1,#1.0,#0.54, 
-                  'theta_RMru':0.15,
-                  'sigma_RMru':0.001,
-                  'tau_RM_RMr':1e3,
-                  'alpha_RM_RMr':1,
-                  'theta_RM_RMr': 0.02,
-                  'sigma_RM_RMr': 0.001
-                  }}, # to get 150% LTP as in Edlmann et al. 2015
+    # {'label':'RMECB',
+    #  'type':'RM_eCB',
+    # 'locations':[0.5],
+    # 'parameters':{'tau_RM': 7e3, #1800e3, # next 10e3 #ms
+    #               'theta_cai_RM': 0.046, # mM this is tuned to distinguish between LTP1:4 deltat=5ms and LTP1:1 deltat=-5ms
+    #               'sigma_cai_RM' : 0.01e-3, # mM
+    #               'alpha_cai_RMBLK': 1.5e-2, # mM/ms
+    #               'theta_cai_RMBLK' : 0.12, # mM
+    #               'sigma_cai_RMBLK' : 0.0001, # mM
+    #               'tau_RMBLK' : 1e5, # mM
+    #               'tau_RMLTP11':1800e3*1.2, # ms
+    #               'alpha_RMru':1.1,#1.0,#0.54, 
+    #               'theta_RMru':0.15,
+    #               'sigma_RMru':0.001,
+    #               'tau_RM_RMr':1e3,
+    #               'alpha_RM_RMr':1,
+    #               'theta_RM_RMr': 0.02,
+    #               'sigma_RM_RMr': 0.001
+    #               }}, # to get 150% LTP as in Edlmann et al. 2015
     {'label':'AMPA',
      'type':'Wghkampa_preML',
     'locations':[0.5],
     'parameters':{'Pmax':4e-6,
                   'glut_factor': 40}},
-    {'label':'BDNF',
-     'type':'BDNF',
-    'locations':[0.5],
-    'parameters':{'theta_cai_BDNF': 0.1038,
-                  'max_cai_BDNF': 0.16,
-                  'max_BDNF_rel_delay' : 300e3,
-                  'alpha_gAMPA': 1.5, #4.8, 
-                  'theta_gAMPA': 0.01,#0.038,
-                  'sigma_gAMPA': 0.00001,#0.0015,
-                  'shift_gAMPA': 0,
-                  'v_BDNF':0.002*1.0,
-                  'proBDNF_fraction':0.3,
-                  'duration_BDNF_release':1500e3}},
+    # {'label':'BDNF',
+    #  'type':'BDNF',
+    # 'locations':[0.5],
+    # 'parameters':{'theta_cai_BDNF': 0.1038,
+    #               'max_cai_BDNF': 0.16,
+    #               'max_BDNF_rel_delay' : 300e3,
+    #               'alpha_gAMPA': 1.5, #4.8, 
+    #               'theta_gAMPA': 0.01,#0.038,
+    #               'sigma_gAMPA': 0.00001,#0.0015,
+    #               'shift_gAMPA': 0,
+    #               'v_BDNF':0.002*1.0,
+    #               'proBDNF_fraction':0.3,
+    #               'duration_BDNF_release':1500e3}},
     {'label':'NMDA',
      'type':'ghknmda',
     'locations':[0.5],
@@ -99,7 +99,7 @@ spike_delay_rnd = 8
 Block_RMBLK = 0
 
 PPR = True
-time_on_initialization = 100e3 # ms 600e3 = 10 min
+time_on_initialization = 1e3 # ms 600e3 = 10 min
 time_to_begin_induction = 20e3 # ms
 nstim = 70
 induction_freq = 0.5 # Hz
@@ -163,12 +163,12 @@ single_figures = {
     'Cont EPSP':(0.7,0,0.3,0.3),
     'Pot EPSP':(0.4,0.7,0.3,0.3),
     'U_SE':(0.7,0.4,0.3,0.3),#'fused vesicles':(0.7,0.4,0.3,0.3),
-    'bdnf':(),
-    'trkb':(),
-    'use':(),
-    'rm':(),
-    'rmd':(),
-    'gfactor':()
+    # 'bdnf':(),
+    # 'trkb':(),
+    # 'use':(),
+    # 'rm':(),
+    # 'rmd':(),
+    # 'gfactor':()
           }
 summary_panels = {'EPSP_sl':[['#DC143C','d',2,14],['#00008B','s',1,14],['g','+',1,14]],
           'STDP':['#DC143C','#00008B']}
@@ -543,15 +543,7 @@ figure_list = {
 
     
 protocols = {
-    'LTP14':{
-        'BPAP_dep_stimulus_duration':2.5, # ms        
-        'BPAP_hyp_stimulus_duration':0, # ms
-        'n_BPAP':4,
-        'activate_LTP_protocol':True,
-        'nstim':25,
-        'repeat_protocol':1,
-        'color':'r'}
-    # ,'LTP14_2':{
+    # 'LTP14':{
     #     'BPAP_dep_stimulus_duration':2.5, # ms        
     #     'BPAP_hyp_stimulus_duration':0, # ms
     #     'n_BPAP':4,
@@ -559,31 +551,31 @@ protocols = {
     #     'nstim':25,
     #     'repeat_protocol':1,
     #     'color':'r'}
-    # ,'1EPSP':{
-    #     'BPAP_dep_stimulus_duration':0, # ms        
-    #     'BPAP_hyp_stimulus_duration':0, # ms        
-    #     'activate_LTP_protocol':True,
-    #     'n_BPAP':0,
-    #     'nstim':70,
-    #     'repeat_protocol':1,
-    #     'color':'#FF4500'}
-    ,'LTP11':{
-        'BPAP_dep_stimulus_duration':2.5, # ms        
+    ,'1EPSP':{
+        'BPAP_dep_stimulus_duration':0, # ms        
         'BPAP_hyp_stimulus_duration':0, # ms        
-        'n_BPAP':1,
         'activate_LTP_protocol':True,
+        'n_BPAP':0,
         'nstim':70,
         'repeat_protocol':1,
-        'color':'b'}
-     # ,'LTP14_RMBLK':{
-     #     'BPAP_dep_stimulus_duration':2.5, # ms        
-     #     'BPAP_hyp_stimulus_duration':0, # ms
-     #     'n_BPAP':4,
-     #     'activate_LTP_protocol':True,
-     #     'nstim':25,
-     #     'Block_RMBLK':True,
-     #     'repeat_protocol':1,
-     #     'color':'r'}
+        'color':'#FF4500'}
+    # ,'LTP11':{
+    #     'BPAP_dep_stimulus_duration':2.5, # ms        
+    #     'BPAP_hyp_stimulus_duration':0, # ms        
+    #     'n_BPAP':1,
+    #     'activate_LTP_protocol':True,
+    #     'nstim':70,
+    #     'repeat_protocol':1,
+    #     'color':'b'}
+    # ,'LTP14_RMBLK':{
+    #     'BPAP_dep_stimulus_duration':2.5, # ms        
+    #     'BPAP_hyp_stimulus_duration':0, # ms
+    #     'n_BPAP':4,
+    #     'activate_LTP_protocol':True,
+    #     'nstim':25,
+    #     'Block_RMBLK':True,
+    #     'repeat_protocol':1,
+    #     'color':'r'}
     # ,'LTP12':{
     #     'BPAP_dep_stimulus_duration':2.5, # ms        
     #     'BPAP_hyp_stimulus_duration':0, # ms        
@@ -618,12 +610,7 @@ protocols = {
 
 print((list(protocols.keys())))
     
-# protocols = {'1EPSP':{
-#     'BPAP_dep_stimulus_duration':0, # ms        
-#     'BPAP_hyp_stimulus_duration':0, # ms        
-#     'activate_LTP_protocol':True,
-#     'color':'#FF4500'}
-#     }
+
 # deltaT = 10 ms  = post - pre 
 # blue = LTP14
 # verde = LTP11
