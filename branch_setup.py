@@ -16,21 +16,16 @@ class Spiny_branch():
         h.celsius = p['temperature']
 
         # Load the branch 93 with its channels
-        self.cell = pyr.cell(p['Vrest'],
-                            p['RmDend'],
-                            p['RaAll'],
-                            p['CmDend'],
-                            records=[
-                                {'section':'soma',
-                                    'variable':'v',
-                                 'location':0.5,
-                                'unit':'mV'},
-                                {'section':'branch_base',
-                                    'variable':'v',
-                                 'location':0.5,
-                                 'unit':'mV'}],
-                             use_channels=True
-        )
+        self.cell = pyr.cell(records=[
+            {'section':'soma',
+             'variable':'v',
+             'location':0.5,
+             'unit':'mV'},
+            {'section':'branch_base',
+             'variable':'v',
+             'location':0.5,
+             'unit':'mV'}]
+                             )
 
         # # Set branhc erev
         # for sec in self.cell.branch_sl:

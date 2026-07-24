@@ -5,7 +5,7 @@ import numpy as np
 
 class cell(object):
 
-    def __init__(self, Vrest, Rm, Ra, Cm, records=[], check = False, use_channels = True):
+    def __init__(self, records=[], check=False):
         self.Name = 'pyr2005'
         # Load the neuron structure from .swc converted to .hoc geometry
         if use_channels:
