@@ -56,34 +56,9 @@ class Spine():
         #         setattr(self.head,attr, getattr(self.parent_sec,attr))
         #         print getattr(self.head,attr)
         # h.pop_section()
+        
         # Access head section
         self.head.push()
-        # print self.head.BDNF.alpha_gAMPA, self.head.BDNF.theta_gAMPA, self.head.BDNF.sigma_gAMPA
-        
-        if hasattr(self.head, 'BDNF'):
-            self.head.BDNF.setRandObjRef(noiseRandObj)
-            self.highindex = noiseRandObj.MCellRan4(highindex)
-            if h.ismembrane('ca_ion'):
-                setattr(self.head,'internal_nc',h.NetCon(self.head(0.5)._ref_cai, self.head.BDNF, sec = self.head))
-                self.head.internal_nc.threshold = self.head.BDNF.theta_cai_BDNF
-                # print 'theta_cai_BDNF', self.head.internal_nc.threshold
-                self.head.internal_nc.delay = 0.1e-3
-            else:
-                raise Exception("BDNF mechanism requires also cad for Ca dynamics")
-            if hasattr(self.head, 'AMPA'):
-                if p['check']:
-                    print("Setting pointer AMPA.g_factor->BDNF.gAMPA")
-                h.setpointer(self.head.AMPA._ref_g_factor, 'gAMPA', self.head.BDNF)
-            else:
-                raise Exception("BDNF mechanism require also AMPA")
-
-        if hasattr(self.head, 'RMECB'):
-            if hasattr(self.head, 'AMPA'):
-                if p['check']:
-                    print("Setting pointer AMPA.U_SE_factor->RMECB.delta_U")
-                h.setpointer(self.head.AMPA._ref_U_SE_factor, 'delta_U', self.head.RMECB)
-            else:
-                raise Exception("RM_eCB mechanism require also AMPA")
 
         if h.ismembrane('na_ion'):
             self.head.ena = 55
