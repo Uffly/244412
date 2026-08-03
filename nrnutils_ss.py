@@ -4,7 +4,7 @@ Wrapper classes to make working with NEURON easier.
 Author: Andrew P. Davison, UNIC, CNRS
 """
 
-__version__ = "0.3.0"
+nu__version__ = "0.3.0"
 
 from neuron import nrn, h, hclass
 import h5py as h5

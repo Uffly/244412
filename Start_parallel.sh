@@ -18,17 +18,17 @@ else
 fi
 
 # Force git commit
-python git_force_commit.py
+# python git_force_commit.py
 
 echo $dn > last_run
 mkdir -p $dn/scripts
-cp -r *.hoc *.py mod_files_2005 $dn/scripts
+cp -r *.hoc *.py mod_files $dn/scripts
 echo '**' > $dn/.gitignore
 # Store git commit tag
 git log --decorate > $dn/scripts/git.log
 
 cd $dn/scripts
-nrnivmodl mod_files_2005
+nrnivmodl mod_files
 time mpiexec -n $cpun nrniv -mpi run_parallel.py 2>&1 | tee run.log 
 python pull_data_branch.py 2>&1 | tee -a run.log 
 mv store_multi_pulled.hdf5 ..

@@ -80,7 +80,7 @@ def superrun(xxx_todo_changeme):
     else:
         h.run()
     for s in cell.spines:
-        print((s.name, s.head.AMPA.Pmax, s.head.AMPA.g_factor, s.head.AMPA.glut_factor, 'lowindex', cell.MCell_Ran4_lowindex, 'cell highindex', cell.MCell_Ran4_highindex, 'spine highindex', s.highindex, 'delta t', delta_t))
+        print((s.name, s.head.AMPA.Pmax, s.head.AMPA.g_factor, s.head.AMPA.glut_factor, 'lowindex', cell.MCell_Ran4_lowindex, 'cell highindex', cell.MCell_Ran4_highindex, 'delta t', delta_t))
 
     store = h5.File(p['data_file']+'_%g.hdf5'%run_index, 'w')
     # print "Opened data file on cpu %g"%rank
