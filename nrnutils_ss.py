@@ -188,7 +188,7 @@ class Section(nrn.Section):
 
         for r_n,r in list(self.records.items()):
             r_g = g.create_group(r_n)
-            r_u = r_g.create_dataset('Unit', data = np.string_(r['unit']))
+            r_u = r_g.create_dataset('Unit', data = np.bytes_(r['unit']))
             if write_datasets:
                 data = np.array(r['val'])
                 data_length = data.shape[0]

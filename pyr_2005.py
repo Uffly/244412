@@ -180,7 +180,7 @@ class cell(object):
             r_g = g.create_group(r_n)
             # Write section time
             if r_n is 'time':
-                r_u = r_g.create_dataset('Unit', data = np.string_(r['unit']))
+                r_u = r_g.create_dataset('Unit', data = np.bytes_(r['unit']))
                 if write_datasets:
                     data = np.array(r['val'])
                     data_length = data.shape[0]
@@ -201,7 +201,7 @@ class cell(object):
                # Loop over variables in sections
                 for v_n,v in list(r.items()):
                     v_g = r_g.create_group(v_n)
-                    v_u = v_g.create_dataset('Unit', data = np.string_(v['unit']))
+                    v_u = v_g.create_dataset('Unit', data = np.bytes_(v['unit']))
                     if write_datasets:
                         data = np.array(v['val'])
                         data_length = data.shape[0]
