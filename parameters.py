@@ -102,7 +102,7 @@ PPR = True
 time_on_initialization = 1e3 # ms 600e3 = 10 min
 time_to_begin_induction = 20e3 # ms
 nstim = 70
-induction_freq = 0.5 # Hz
+induction_freq = 100 # Hz
 BPAP_stimulus_amplitude = 5 # nA
 BPAP_stimulus_amplitude_branch = 0.08 # nA
 BPAP_dep_stimulus_duration = 2.5 # ms
@@ -111,7 +111,7 @@ time_after_induction = 0 # ms
 test_freq = 0.05 # Hz = 1/(20sec)
 time_start_induction = time_on_initialization + time_to_begin_induction
 test_post_point_to_plot_interval = 2*60*1e3 # ms = 2 min see Fig1B of Edelmann2015
-time_of_expression = 1800e3 # ms = 30 min
+time_of_expression = 18e5 # ms = 30 min
 activate_LTP_protocol = True
 # time_delta =  [-30,-20, -10, -5]
 time_delta =  [ -5, -5, -5, -5]
@@ -557,7 +557,7 @@ protocols = {
         'BPAP_hyp_stimulus_duration':0, # ms        
         'activate_LTP_protocol':True,
         'n_BPAP':0,
-        'nstim':70,
+        'nstim':1,
         'repeat_protocol':1,
         'color':'#FF4500'}
     # ,'LTP11':{

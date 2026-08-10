@@ -8,6 +8,16 @@ import h5py as h5
 from protocol import *
 import sys
 
+def safe_array(seq):
+    try:
+        return np.array(seq, dtype=float)
+    except (ValueError, TypeError):
+        # Konwersja obiektów NEURON i wyrównanie list o różnych długościach
+        clean = [list(x) if hasattr(x, '__iter__') else [x] for x in seq]
+        max_len = max((len(x) for x in clean), default=0)
+        return np.array([x + [np.nan] * (max_len - len(x)) for x in clean])
+
+
 def superrun(xxx_todo_changeme):
 
     (run_index,delta_t, dep_dur, hyp_dur, n_BPAP, conf_n, activate_LTP,nstim,blk_RMBLK) = xxx_todo_changeme
@@ -95,15 +105,15 @@ def superrun(xxx_todo_changeme):
     run_iteration.create_dataset('spiny branch names',data=[str(ss) for ss in cell.spine_segments])
     run_iteration.create_dataset('delta_t',data=delta_t)
     run_iteration.create_dataset('test_pre_spike_times',
-                                data=np.array(protocol.stimulators['test_pre_spike_times']))
+                                data=safe_array(protocol.stimulators['test_pre_spike_times']))
     run_iteration.create_dataset('induction_spikes',
-                                data=np.array(protocol.stimulators['induction_spikes']))
+                                data=safe_array(protocol.stimulators['induction_spikes']))
     run_iteration.create_dataset('test_during_spike_times',
-                                data=np.array(protocol.stimulators['test_during_spike_times']))
+                                data=safe_array(protocol.stimulators['test_during_spike_times']))
     run_iteration.create_dataset('test_post_spike_times',
-                                data=np.array(protocol.stimulators['test_post_spike_times']))
+                                data=safe_array(protocol.stimulators['test_post_spike_times']))
     run_iteration.create_dataset('induction_injection_times',
-                                data=np.array(protocol.stimulators['IC_delays']))
+                                data=safe_array(protocol.stimulators['IC_delays']))
 
     if p['check']:
         for spine_index,spine in enumerate(cell.spines):
