@@ -16,11 +16,11 @@ for idx,f in enumerate(ls):
         fs = h5.File(f, 'r')
         print(idx)
         if not idx:
-            fs.copy(fs['Parameters'],store)
+            fs.copy('Parameters', store)
         for gs_n,gs in list(fs['Simulation_data'].items()):
             fdd = fd.require_group(gs_n)
             print((gs_n,list(gs.keys())))
             for gss_n,gss in list(gs.items()):
-                fs.copy(gss,fdd)
+                fdd[gss_n] = gs[gss_n][:]
         fs.close()
 store.close()

@@ -33,4 +33,3 @@ time mpiexec -n $cpun nrniv -mpi run_parallel.py 2>&1 | tee run.log
 python pull_data_branch.py 2>&1 | tee -a run.log 
 mv store_multi_pulled.hdf5 ..
 cd ../..
-
