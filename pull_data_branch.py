@@ -17,10 +17,12 @@ for idx,f in enumerate(ls):
         print(idx)
         if not idx:
             fs.copy('Parameters', store)
-        for gs_n,gs in list(fs['Simulation_data'].items()):
+        for gs_n in list(fs['Simulation_data'].keys()):
             fdd = fd.require_group(gs_n)
-            print((gs_n,list(gs.keys())))
-            for gss_n,gss in list(gs.items()):
-                fdd[gss_n] = gs[gss_n][:]
+            gs = fs['Simulation_data'][gs_n]
+            print((gs_n, list(gs.keys())))
+            for gss_n in list(gs.keys()):
+                if gss_n not in fdd:
+                    fs.copy(f'Simulation_data/{gs_n}/{gss_n}', fdd)
         fs.close()
 store.close()
