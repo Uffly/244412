@@ -24,7 +24,11 @@ class Spiny_branch():
             {'section':'branch_base',
              'variable':'v',
              'location':0.5,
-             'unit':'mV'}]
+             'unit':'mV'},
+             {'section':'branch37_base',  #Bez kolców
+             'variable':'v',
+             'location' : 0.5,
+             'unit' : 'mV'}]
                              )
 
         # # Set branhc erev
@@ -53,16 +57,16 @@ class Spiny_branch():
         self.noiseRandObj.uniform(0,1)
 
         self.branch_segments = [[sec, seg] for sec in list(self.cell.branch38.values()) for seg in sec]
-        self.branch_segments_2 = [[sec, seg] for sec in list(self.cell.branch8.values()) for seg in sec]
-        self.branch_segments_3 = [[sec, seg] for sec in list(self.cell.branch37.values()) for seg in sec]
+        #self.branch_segments_2 = [[sec, seg] for sec in list(self.cell.branch8.values()) for seg in sec]
+        #self.branch_segments_3 = [[sec, seg] for sec in list(self.cell.branch37.values()) for seg in sec]
 
         self.seg_indexes = [-1,-1,-1,-1,-7,-6,-5,-15,-14,-13,-20,-22] # 12 spines [0:11]
-        self.seg_indexes_2 =[-22,-21,-20,-22,-21,-20] # 6 extra spines [12:17]
+        #self.seg_indexes_2 =[-22,-21,-20,-22,-21,-20] # 6 extra spines [12:17]
 
 
         # Seg_indexes are saved in the sim data file.
         self.spine_segments = [self.branch_segments[idx] for idx in self.seg_indexes]
-        self.spine_segments.extend([self.branch_segments_2[idx] for idx in self.seg_indexes_2])
+        #self.spine_segments.extend([self.branch_segments_2[idx] for idx in self.seg_indexes_2])
         print([str(sn) for sn in self.spine_segments])
 
         # Spines

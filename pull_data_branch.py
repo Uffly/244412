@@ -11,7 +11,7 @@ fd = store.require_group('Simulation_data')
 
 ls = listdir(p['data_file']+'_*.hdf5')
 
-for idx,f in enumerate(ls):
+for idx, f in enumerate(ls):
     if 'pulled' not in f:
         fs = h5.File(f, 'r')
         print(idx)

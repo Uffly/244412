@@ -100,7 +100,7 @@ def superrun(xxx_todo_changeme):
     # Group for single iteration
     run_iteration = conf_data.create_group('delta_t_%g_%g'%(delta_t,run_index))
     run_iteration.create_dataset('branches indexes',data=cell.seg_indexes)
-    run_iteration.create_dataset('branches indexes 2',data=cell.seg_indexes_2)
+    #run_iteration.create_dataset('branches indexes 2',data=cell.seg_indexes_2)
     run_iteration.create_dataset('branch names',data=[str(ss) for ss in cell.branch_segments])
     run_iteration.create_dataset('spiny branch names',data=[str(ss) for ss in cell.spine_segments])
     run_iteration.create_dataset('delta_t',data=delta_t)

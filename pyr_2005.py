@@ -61,7 +61,8 @@ class cell(object):
 
         special_sections = {
             'soma':self.soma,
-            'branch_base':self.branch_base}
+            'branch_base':self.branch_base,
+            'branch37_base':self.branch37_base}
             
         if check:
             print((self.branch_sl.printnames()))
