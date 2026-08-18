@@ -3,7 +3,7 @@ spine_records = [
     {'variable':'cai','location':0.5,'unit':'mM'}
     ,{'variable':'gluti','location':0.5,'unit':'mM'}
     ,{'variable':'v','location':0.5,'unit':'mV'}
-    ,{'variable':'ica','location':0.5,'unit':'mM'}
+    ,{'variable':'ica','location':0.5,'unit':'mA/cm2'}
     ,{'variable':'iampa','point_process':'AMPA','location':0.5,'unit':'nA'}
     ,{'variable':'U_SE_factor','point_process':'AMPA','location':0.5,'unit':''}
     ,{'variable':'U_SE','point_process':'AMPA','location':0.5,'unit':''}
