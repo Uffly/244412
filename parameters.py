@@ -111,7 +111,7 @@ time_after_induction = 0 # ms
 test_freq = 0.05 # Hz = 1/(20sec)
 time_start_induction = time_on_initialization + time_to_begin_induction
 test_post_point_to_plot_interval = 2*60*1e3 # ms = 2 min see Fig1B of Edelmann2015
-time_of_expression = 18e5 # ms = 30 min
+time_of_expression = 6e5 # ms = 10min
 activate_LTP_protocol = True
 # time_delta =  [-30,-20, -10, -5]
 time_delta =  [ -5, -5, -5, -5]
@@ -132,7 +132,7 @@ if ca_tuning:
     test_freq = 0.05 # Hz = 1/(20sec)
     time_start_induction = time_on_initialization + time_to_begin_induction
     test_post_point_to_plot_interval = 2*60*1e3 # ms = 2 min see Fig1B of Edelmann2015
-    time_of_expression = 1800e3 # ms = 30 min
+    time_of_expression = 6e5 # ms = 10 min
     activate_LTP_protocol = True
     time_delta =  list(range(-15,16,5))#[-10, -5]#[-20, -15, -10, -5, 0, 5, 10, 15, 20] # ms [-10, -5, 10]#
     override_tstop = 5e3
