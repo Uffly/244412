@@ -32,7 +32,7 @@ NEURON {
     RANGE inmda
     
     RANGE P, mg, Pmax
-    RANGE  mgb, ica, Area, mgb_k, mg_ref
+    RANGE  mgb, ica, Area, mgb_k, mg_ref, ica_nmdar
 }
 
 UNITS {
@@ -67,6 +67,7 @@ ASSIGNED {
     ina     (nA)
     ik      (nA)
     ica     (nA)
+    ica_nmdar (nA)
     v (mV)
     P (cm/s)
     factor
@@ -101,9 +102,10 @@ BREAKPOINT {
     mgb = mgblock(v)
     
     : Area is just for unit conversion of ghk output
-    
-    ina = P*mgb*ghk(v, nai, nao,1)*Area	
     ica = P*10.6*mgb*ghk(v, cai, cao,2)*Area
+    ina = P*mgb*ghk(v, nai, nao,1)*Area	
+    
+    ica_nmdar = ica
     ik = P*mgb*ghk(v, ki, ko,1)*Area
     inmda = ica + ik + ina
     : printf("nmda%g\t",gluti)
